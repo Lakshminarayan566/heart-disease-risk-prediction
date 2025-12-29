@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400px" height="200px" viewBox="0 0 400 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <!-- Gradients for gauge -->
+        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#42E695;stop-opacity:1" /> <!-- Green (Low risk) -->
+            <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" /> <!-- Yellow (Medium risk) -->
+            <stop offset="100%" style="stop-color:#FF3366;stop-opacity:1" /> <!-- Red (High risk) -->
+        </linearGradient>
+        
+        <!-- Glow filter -->
+        <filter id="gaugeGlow" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+    </defs>
+    
+    <!-- Gauge background -->
+    <path d="M 50,150 A 100,100 0 0 1 350,150" 
+          stroke="#2A3950" 
+          stroke-width="20" 
+          fill="none" 
+          stroke-linecap="round" />
+    
+    <!-- Gauge colored track -->
+    <path d="M 50,150 A 100,100 0 0 1 350,150" 
+          stroke="url(#gaugeGradient)" 
+          stroke-width="15" 
+          fill="none" 
+          stroke-linecap="round"
+          filter="url(#gaugeGlow)" />
+    
+    <!-- Tick marks -->
+    <g stroke="#fff" stroke-width="2">
+        <!-- 0% mark -->
+        <line x1="50" y1="150" x2="50" y2="130" />
+        <text x="50" y="120" text-anchor="middle" fill="#fff" font-family="Arial" font-size="12">0%</text>
+        
+        <!-- 25% mark -->
+        <line x1="125" y1="109" x2="125" y2="89" />
+        <text x="125" y="79" text-anchor="middle" fill="#fff" font-family="Arial" font-size="12">25%</text>
+        
+        <!-- 50% mark -->
+        <line x1="200" y1="90" x2="200" y2="70" />
+        <text x="200" y="60" text-anchor="middle" fill="#fff" font-family="Arial" font-size="12">50%</text>
+        
+        <!-- 75% mark -->
+        <line x1="275" y1="109" x2="275" y2="89" />
+        <text x="275" y="79" text-anchor="middle" fill="#fff" font-family="Arial" font-size="12">75%</text>
+        
+        <!-- 100% mark -->
+        <line x1="350" y1="150" x2="350" y2="130" />
+        <text x="350" y="120" text-anchor="middle" fill="#fff" font-family="Arial" font-size="12">100%</text>
+    </g>
+    
+    <!-- Risk level zones -->
+    <g font-family="Arial" font-size="14" text-anchor="middle">
+        <text x="100" y="180" fill="#42E695">Low Risk</text>
+        <text x="200" y="180" fill="#FFD700">Medium Risk</text>
+        <text x="300" y="180" fill="#FF3366">High Risk</text>
+    </g>
+    
+    <!-- Gauge needle -->
+    <g id="needle" transform="translate(200, 150) rotate(-90)">
+        <path d="M 0,0 L 100,0 L 100,5 L 0,0 L 100,-5 Z" fill="#fff" />
+        <circle cx="0" cy="0" r="10" fill="#2A3950" stroke="#fff" stroke-width="2" />
+        <animateTransform attributeName="transform"
+                          type="rotate"
+                          from="-90 200 150"
+                          to="90 200 150"
+                          begin="0s"
+                          dur="2s"
+                          repeatCount="1"
+                          fill="freeze" />
+    </g>
+</svg>
