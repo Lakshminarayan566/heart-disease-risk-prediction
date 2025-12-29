@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000px" height="300px" viewBox="0 0 1000 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="heartWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#FF416C;stop-opacity:0.8" />
+            <stop offset="50%" style="stop-color:#FF4B2B;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#FF416C;stop-opacity:0.8" />
+        </linearGradient>
+    </defs>
+    <g stroke="url(#heartWaveGradient)" stroke-width="4" fill="none">
+        <path id="heartWave" d="M0,150 
+                 C50,150 100,150 150,150 
+                 L200,150 
+                 L250,50 
+                 L300,250 
+                 L350,150 
+                 L400,150 
+                 C450,150 500,150 550,150
+                 L600,150 
+                 L650,50 
+                 L700,250 
+                 L750,150 
+                 L800,150
+                 C850,150 900,150 950,150
+                 L1000,150"
+              stroke-dasharray="3000"
+              stroke-dashoffset="3000">
+            <animate attributeName="stroke-dashoffset" 
+                     from="3000" 
+                     to="0" 
+                     dur="5s" 
+                     repeatCount="indefinite"/>
+        </path>
+    </g>
+    
+    <!-- Heart pulsing on the waves -->
+    <g id="heart1" transform="translate(250,50) scale(0.5)">
+        <path d="M25,10 C25,10 27.5,5 35,5 C42.5,5 50,12.5 50,20 C50,35 25,50 25,50 C25,50 0,35 0,20 C0,12.5 7.5,5 15,5 C22.5,5 25,10 25,10 Z" 
+              fill="#FF416C" fill-opacity="0.9">
+            <animate attributeName="transform" 
+                     type="scale"
+                     values="1;1.2;1"
+                     dur="1.5s"
+                     repeatCount="indefinite"/>
+        </path>
+    </g>
+    
+    <g id="heart2" transform="translate(650,50) scale(0.5)">
+        <path d="M25,10 C25,10 27.5,5 35,5 C42.5,5 50,12.5 50,20 C50,35 25,50 25,50 C25,50 0,35 0,20 C0,12.5 7.5,5 15,5 C22.5,5 25,10 25,10 Z" 
+              fill="#FF416C" fill-opacity="0.9">
+            <animate attributeName="transform" 
+                     type="scale"
+                     values="1;1.2;1"
+                     dur="1.5s"
+                     begin="0.75s"
+                     repeatCount="indefinite"/>
+        </path>
+    </g>
+    
+    <!-- Background grid -->
+    <g stroke="#f8f9fa" stroke-width="0.5" stroke-opacity="0.2">
+        <line x1="0" y1="75" x2="1000" y2="75" />
+        <line x1="0" y1="150" x2="1000" y2="150" />
+        <line x1="0" y1="225" x2="1000" y2="225" />
+        
+        <line x1="100" y1="0" x2="100" y2="300" />
+        <line x1="200" y1="0" x2="200" y2="300" />
+        <line x1="300" y1="0" x2="300" y2="300" />
+        <line x1="400" y1="0" x2="400" y2="300" />
+        <line x1="500" y1="0" x2="500" y2="300" />
+        <line x1="600" y1="0" x2="600" y2="300" />
+        <line x1="700" y1="0" x2="700" y2="300" />
+        <line x1="800" y1="0" x2="800" y2="300" />
+        <line x1="900" y1="0" x2="900" y2="300" />
+    </g>
+</svg>

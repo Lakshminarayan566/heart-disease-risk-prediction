@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="200px" viewBox="0 0 600 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="monitorGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#4776E6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8E54E9;stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#42E695;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#3BB2B8;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#42E695;stop-opacity:1" />
+        </linearGradient>
+        
+        <filter id="monitorGlow" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+    </defs>
+    
+    <!-- Monitor background -->
+    <rect x="50" y="30" width="500" height="140" rx="10" ry="10" fill="url(#monitorGradient)" filter="url(#monitorGlow)" />
+    
+    <!-- Monitor screen -->
+    <rect x="70" y="50" width="460" height="100" rx="5" ry="5" fill="#1a2639" />
+    
+    <!-- Grid lines -->
+    <g stroke="#2A3950" stroke-width="0.5" stroke-opacity="0.3">
+        <line x1="70" y1="100" x2="530" y2="100" />
+        <line x1="70" y1="75" x2="530" y2="75" stroke-dasharray="3,3" />
+        <line x1="70" y1="125" x2="530" y2="125" stroke-dasharray="3,3" />
+        
+        <line x1="130" y1="50" x2="130" y2="150" stroke-dasharray="3,3" />
+        <line x1="190" y1="50" x2="190" y2="150" stroke-dasharray="3,3" />
+        <line x1="250" y1="50" x2="250" y2="150" stroke-dasharray="3,3" />
+        <line x1="310" y1="50" x2="310" y2="150" stroke-dasharray="3,3" />
+        <line x1="370" y1="50" x2="370" y2="150" stroke-dasharray="3,3" />
+        <line x1="430" y1="50" x2="430" y2="150" stroke-dasharray="3,3" />
+        <line x1="490" y1="50" x2="490" y2="150" stroke-dasharray="3,3" />
+    </g>
+    
+    <!-- ECG Line -->
+    <path id="ecgLine" 
+          d="M70,100 
+             L120,100 
+             L130,100 
+             L140,80 
+             L150,120 
+             L160,100 
+             L190,100 
+             L210,105 
+             L230,105 
+             L240,70 
+             L250,130 
+             L260,100 
+             L290,100 
+             L330,100 
+             L340,105 
+             L360,105 
+             L370,70 
+             L380,130 
+             L390,100 
+             L420,100 
+             L460,100 
+             L470,105
+             L490,105 
+             L500,70 
+             L510,130 
+             L520,100 
+             L530,100" 
+          stroke="url(#lineGradient)" 
+          stroke-width="2" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          filter="url(#monitorGlow)">
+        
+        <!-- Animate the ECG line with dash array -->
+        <animate attributeName="stroke-dasharray" 
+                 values="1000,1000;0,1000" 
+                 dur="3s" 
+                 repeatCount="indefinite" />
+        <animate attributeName="stroke-dashoffset" 
+                 values="1000;0" 
+                 dur="3s" 
+                 repeatCount="indefinite" />
+    </path>
+    
+    <!-- Monitor buttons and details -->
+    <g>
+        <circle cx="520" cy="170" r="5" fill="#42E695" />
+        <circle cx="500" cy="170" r="5" fill="#FFD700" />
+        <circle cx="480" cy="170" r="5" fill="#FF3366" />
+        
+        <text x="90" y="175" font-family="Arial" font-size="10" fill="#ffffff">HEART MONITOR</text>
+        <text x="440" y="175" font-family="Arial" font-size="10" fill="#ffffff">BPM: 78</text>
+    </g>
+    
+    <!-- Heart icon pulsing with the monitor -->
+    <g transform="translate(30, 100) scale(0.4)">
+        <path d="M25,10 
+                 C25,10 27.5,5 35,5 
+                 C42.5,5 50,12.5 50,20 
+                 C50,35 25,50 25,50 
+                 C25,50 0,35 0,20 
+                 C0,12.5 7.5,5 15,5 
+                 C22.5,5 25,10 25,10 Z" 
+              fill="#FF416C">
+            <animate attributeName="transform" 
+                     values="scale(1);scale(1.2);scale(1)" 
+                     dur="1s" 
+                     repeatCount="indefinite" />
+            <animate attributeName="opacity" 
+                     values="0.7;1;0.7" 
+                     dur="1s" 
+                     repeatCount="indefinite" />
+        </path>
+    </g>
+</svg>

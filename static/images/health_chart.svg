@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="300px" viewBox="0 0 800 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="barGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#36D1DC;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#5B86E5;stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="barGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#FF416C;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FF4B2B;stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="barGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#42E695;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#3BB2B8;stop-opacity:1" />
+        </linearGradient>
+        
+        <filter id="chartGlow" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+    </defs>
+    
+    <!-- Title -->
+    <text x="400" y="30" font-family="Arial" font-size="18" fill="#ffffff" text-anchor="middle" font-weight="bold">Heart Health Risk Factors</text>
+    
+    <!-- Axes -->
+    <line x1="100" y1="250" x2="700" y2="250" stroke="#ffffff" stroke-width="2" />
+    <line x1="100" y1="50" x2="100" y2="250" stroke="#ffffff" stroke-width="2" />
+    
+    <!-- Y Axis Labels -->
+    <text x="80" y="250" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end">0%</text>
+    <text x="80" y="200" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end">25%</text>
+    <text x="80" y="150" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end">50%</text>
+    <text x="80" y="100" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end">75%</text>
+    <text x="80" y="50" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end">100%</text>
+    
+    <!-- Horizontal guidelines -->
+    <line x1="95" y1="200" x2="700" y2="200" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="5,5" />
+    <line x1="95" y1="150" x2="700" y2="150" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="5,5" />
+    <line x1="95" y1="100" x2="700" y2="100" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="5,5" />
+    <line x1="95" y1="50" x2="700" y2="50" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.3" stroke-dasharray="5,5" />
+    
+    <!-- Bar Chart -->
+    <g>
+        <!-- Bar 1: Age -->
+        <rect id="ageBar" x="150" y="180" width="40" height="70" rx="5" ry="5" fill="url(#barGradient1)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="70" dur="1s" begin="0s" fill="freeze" />
+            <animate attributeName="y" from="250" to="180" dur="1s" begin="0s" fill="freeze" />
+        </rect>
+        <text x="170" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Age</text>
+        
+        <!-- Bar 2: Smoking -->
+        <rect id="smokingBar" x="220" y="100" width="40" height="150" rx="5" ry="5" fill="url(#barGradient2)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="150" dur="1s" begin="0.1s" fill="freeze" />
+            <animate attributeName="y" from="250" to="100" dur="1s" begin="0.1s" fill="freeze" />
+        </rect>
+        <text x="240" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Smoking</text>
+        
+        <!-- Bar 3: Alcohol -->
+        <rect id="alcoholBar" x="290" y="125" width="40" height="125" rx="5" ry="5" fill="url(#barGradient1)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="125" dur="1s" begin="0.2s" fill="freeze" />
+            <animate attributeName="y" from="250" to="125" dur="1s" begin="0.2s" fill="freeze" />
+        </rect>
+        <text x="310" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Alcohol</text>
+        
+        <!-- Bar 4: Exercise -->
+        <rect id="exerciseBar" x="360" y="190" width="40" height="60" rx="5" ry="5" fill="url(#barGradient3)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="60" dur="1s" begin="0.3s" fill="freeze" />
+            <animate attributeName="y" from="250" to="190" dur="1s" begin="0.3s" fill="freeze" />
+        </rect>
+        <text x="380" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Exercise</text>
+        
+        <!-- Bar 5: Diet -->
+        <rect id="dietBar" x="430" y="150" width="40" height="100" rx="5" ry="5" fill="url(#barGradient3)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="100" dur="1s" begin="0.4s" fill="freeze" />
+            <animate attributeName="y" from="250" to="150" dur="1s" begin="0.4s" fill="freeze" />
+        </rect>
+        <text x="450" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Diet</text>
+        
+        <!-- Bar 6: Blood Pressure -->
+        <rect id="bpBar" x="500" y="125" width="40" height="125" rx="5" ry="5" fill="url(#barGradient2)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="125" dur="1s" begin="0.5s" fill="freeze" />
+            <animate attributeName="y" from="250" to="125" dur="1s" begin="0.5s" fill="freeze" />
+        </rect>
+        <text x="520" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">BP</text>
+        
+        <!-- Bar 7: Cholesterol -->
+        <rect id="cholBar" x="570" y="140" width="40" height="110" rx="5" ry="5" fill="url(#barGradient2)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="110" dur="1s" begin="0.6s" fill="freeze" />
+            <animate attributeName="y" from="250" to="140" dur="1s" begin="0.6s" fill="freeze" />
+        </rect>
+        <text x="590" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Chol</text>
+        
+        <!-- Bar 8: Genetics -->
+        <rect id="geneticsBar" x="640" y="160" width="40" height="90" rx="5" ry="5" fill="url(#barGradient1)" filter="url(#chartGlow)">
+            <animate attributeName="height" from="0" to="90" dur="1s" begin="0.7s" fill="freeze" />
+            <animate attributeName="y" from="250" to="160" dur="1s" begin="0.7s" fill="freeze" />
+        </rect>
+        <text x="660" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Genetics</text>
+    </g>
+    
+    <!-- Legend -->
+    <g transform="translate(560, 40)">
+        <rect x="0" y="0" width="15" height="15" fill="url(#barGradient2)" rx="2" ry="2" />
+        <text x="25" y="12" font-family="Arial" font-size="12" fill="#ffffff">High Impact</text>
+        
+        <rect x="0" y="25" width="15" height="15" fill="url(#barGradient1)" rx="2" ry="2" />
+        <text x="25" y="37" font-family="Arial" font-size="12" fill="#ffffff">Medium Impact</text>
+        
+        <rect x="0" y="50" width="15" height="15" fill="url(#barGradient3)" rx="2" ry="2" />
+        <text x="25" y="62" font-family="Arial" font-size="12" fill="#ffffff">Protective</text>
+    </g>
+</svg>
