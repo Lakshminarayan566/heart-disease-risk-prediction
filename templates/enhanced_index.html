@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Risk Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="health-gradient">
+  <div class="floating-shapes">
+    <div class="shape-1"></div>
+    <div class="shape-2"></div>
+    <div class="shape-3"></div>
+    <div class="shape-4"></div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8 flex flex-col items-center">
+      <div class="heart-beat-container animate__animated animate__fadeIn">
+        <object type="image/svg+xml" data="{{ url_for('static', filename='images/health_icon.svg') }}" class="w-16 h-16">Heart Icon</object>
+      </div>
+      <h1 class="text-4xl font-bold text-center text-white mt-4 animate__animated animate__fadeInDown">Heart Disease Risk Prediction</h1>
+      <p class="text-xl text-white text-center mt-2 animate__animated animate__fadeIn">Take control of your heart health</p>
+      <div class="featured-image">
+        <object type="image/svg+xml" data="{{ url_for('static', filename='images/heart_monitor.svg') }}" class="w-full">Heart Monitor</object>
+      </div>
+    </header>
+
+    <div class="card-container animate__animated animate__fadeInUp">
+      <div class="form-card">
+        <div class="form-header">
+          <h2 class="text-2xl font-bold">Enter Your Information</h2>
+          <p class="text-sm opacity-80 mt-1">Fill in all fields for accurate prediction</p>
+          
+          <!-- Progress bar container -->
+          <div class="form-progress mt-4">
+            <div class="form-progress-text text-sm">Form completion: <span id="progressPercent">0%</span></div>
+            <div class="form-progress-bar mt-1">
+              <div id="progressFill" class="form-progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <form id="heartForm" class="space-y-6 mt-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Age -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-user-clock icon-prefix"></i> Age</label>
+              <input type="number" name="Age" required>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-venus-mars icon-prefix"></i> Gender</label>
+              <select name="Gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- BMI -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-weight icon-prefix"></i> BMI</label>
+              <input type="number" name="BMI" required>
+              <div class="input-highlight"></div>
+              <button type="button" onclick="window.location.href='/bmi'" class="mini-button">
+                <i class="fas fa-calculator"></i> Calculate BMI
+              </button>
+            </div>
+
+            <!-- Smoking -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-smoking icon-prefix"></i> Smoking</label>
+              <select name="Smoking" required>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Alcohol Intake -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-wine-glass-alt icon-prefix"></i> Alcohol Intake</label>
+              <select name="Alcohol_Intake" required>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Physical Activity -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-running icon-prefix"></i> Physical Activity (hours/week)</label>
+              <input type="number" name="Physical_Activity" required>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Salt Intake -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-utensils icon-prefix"></i> Salt Intake (grams/day)</label>
+              <input type="number" name="Salt_Intake" required>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Blood Pressure -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-heartbeat icon-prefix"></i> Blood Pressure (mmHg)</label>
+              <input type="number" name="Blood_Pressure" required>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Cholesterol -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-tint icon-prefix"></i> Cholesterol (mg/dL)</label>
+              <input type="number" name="Cholesterol" required>
+              <div class="input-highlight"></div>
+              <button type="button" onclick="window.location.href='/cholesterol'" class="mini-button">
+                <i class="fas fa-calculator"></i> Predict Cholesterol
+              </button>
+            </div>
+
+            <!-- Diabetes -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-syringe icon-prefix"></i> Diabetes</label>
+              <select name="Diabetes" required>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Hypertension -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-chart-line icon-prefix"></i> Hypertension</label>
+              <select name="Hypertension" required>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+              <div class="input-highlight"></div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="mt-8">
+            <button type="submit" class="submit-btn hover-grow">
+              <span class="btn-text">Predict Risk</span>
+              <i class="fas fa-arrow-right ml-2"></i>
+              <div class="btn-loader hidden">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </button>
+          </div>
+        </form>
+
+        <!-- Heart Disease Prediction Result -->
+        <div id="heartResult" class="result-section hidden animate__animated">
+          <div class="result-header">
+            <i class="fas fa-clipboard-check text-4xl"></i>
+            <h2 class="text-2xl font-bold">Your Heart Health Result</h2>
+          </div>
+          
+          <div class="result-visual">
+            <object type="image/svg+xml" data="{{ url_for('static', filename='images/gauge.svg') }}" class="w-full mb-4">Risk Gauge</object>
+            <div class="gauge-container">
+              <div class="gauge">
+                <div class="gauge-fill" id="gaugeFill"></div>
+              </div>
+              <div class="gauge-center">
+                <span id="heartPrediction">0</span>%
+              </div>
+            </div>
+          </div>
+          
+          <div class="risk-description">
+            <p>Risk Level: <span id="riskLevel">Calculating...</span></p>
+            <p id="riskMessage" class="mt-2"></p>
+          </div>
+          
+          <div class="health-images">
+            <object type="image/svg+xml" data="{{ url_for('static', filename='images/pulse_wave.svg') }}" class="w-full mb-4 h-20">Pulse Wave</object>
+          </div>
+          
+          <div class="mt-6">
+            <object type="image/svg+xml" data="{{ url_for('static', filename='images/health_chart.svg') }}" class="w-full">Health Chart</object>
+          </div>
+          
+          <button onclick="resetForm()" class="reset-btn mt-4">
+            <i class="fas fa-redo mr-2"></i> Check Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-12 text-center text-white animate__animated animate__fadeIn">
+      <p>© 2023 Heart Health Predictor | For informational purposes only</p>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cholesterol Level Prediction</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="health-gradient">
+  <div class="floating-shapes">
+    <div class="shape-1"></div>
+    <div class="shape-2"></div>
+    <div class="shape-3"></div>
+    <div class="shape-4"></div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8 flex flex-col items-center">
+      <div class="heart-beat-container animate__animated animate__fadeIn">
+        <object type="image/svg+xml" data="{{ url_for('static', filename='images/health_icon.svg') }}" class="w-16 h-16">Heart Icon</object>
+      </div>
+      <h1 class="text-4xl font-bold text-center text-white mt-4 animate__animated animate__fadeInDown">Cholesterol Level Prediction</h1>
+      <p class="text-xl text-white text-center mt-2 animate__animated animate__fadeIn">Understand your cholesterol better</p>
+      
+      <div class="w-8 h-1 bg-gradient-to-r from-red-500 to-pink-500 rounded-full mt-4"></div>
+      
+      <div class="featured-image">
+        <object type="image/svg+xml" data="{{ url_for('static', filename='images/heart_wave.svg') }}" class="w-full">Heart Wave</object>
+      </div>
+    </header>
+
+    <div class="card-container animate__animated animate__fadeInUp">
+      <div class="form-card">
+        <div class="form-header">
+          <h2 class="text-2xl font-bold">Enter Your Nutritional Information</h2>
+          <p class="text-sm opacity-80 mt-1">Fill in all fields for accurate prediction</p>
+        </div>
+
+        <form id="cholesterolForm" class="space-y-6 mt-6">
+          <div class="grid md:grid-cols-1 gap-6">
+            <!-- Fat Intake -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-hamburger icon-prefix"></i> Fat Intake (grams/day)</label>
+              <input type="number" name="Fat_Intake" required>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Protein Intake -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-drumstick-bite icon-prefix"></i> Protein Intake (grams/day)</label>
+              <input type="number" name="Protein_Intake" required>
+              <div class="input-highlight"></div>
+            </div>
+
+            <!-- Carbohydrate Intake -->
+            <div class="form-group hover-float">
+              <label><i class="fas fa-bread-slice icon-prefix"></i> Carbohydrate Intake (grams/day)</label>
+              <input type="number" name="Carbohydrate_Intake" required>
+              <div class="input-highlight"></div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="mt-8">
+            <button type="submit" class="submit-btn hover-grow">
+              <span class="btn-text">Predict Cholesterol</span>
+              <i class="fas fa-arrow-right ml-2"></i>
+              <div class="btn-loader hidden">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </button>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <a href="/" class="mini-button">
+              <i class="fas fa-arrow-left"></i> Back to Heart Disease Risk Prediction
+            </a>
+          </div>
+        </form>
+
+        <!-- Cholesterol Prediction Result -->
+        <div id="cholesterolResult" class="result-section hidden animate__animated">
+          <div class="result-header">
+            <i class="fas fa-flask text-4xl"></i>
+            <h2 class="text-2xl font-bold">Your Cholesterol Result</h2>
+          </div>
+          
+          <div class="result-visual">
+            <object type="image/svg+xml" data="{{ url_for('static', filename='images/pulse_wave.svg') }}" class="w-full mb-4">Pulse Wave</object>
+            <div class="cholesterol-reading">
+              <span id="cholesterolPrediction">0</span> mg/dL
+            </div>
+          </div>
+          
+          <div class="risk-description">
+            <p id="cholesterolLevel">Calculating...</p>
+            <p id="cholesterolMessage" class="mt-2"></p>
+          </div>
+          
+          <div class="recommendation mt-6 p-4 rounded-lg" style="background: rgba(255, 255, 255, 0.05);">
+            <h3 class="font-bold text-lg mb-2">Recommendations</h3>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>Maintain a diet rich in fruits, vegetables, and whole grains</li>
+              <li>Limit saturated fats and avoid trans fats</li>
+              <li>Exercise regularly and maintain a healthy weight</li>
+              <li>Avoid smoking and limit alcohol consumption</li>
+            </ul>
+          </div>
+          
+          <button onclick="resetCholesterolForm()" class="reset-btn mt-6">
+            <i class="fas fa-redo mr-2"></i> Check Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-12 text-center text-white animate__animated animate__fadeIn">
+      <p>© 2023 Heart Health Predictor | For informational purposes only</p>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize animations
+      initializeAnimations();
+      
+      // Handle form submission
+      const cholesterolForm = document.getElementById('cholesterolForm');
+      if (cholesterolForm) {
+        cholesterolForm.addEventListener('submit', handleCholesterolFormSubmit);
+      }
+      
+      // Add focus and blur event listeners to form inputs
+      const formInputs = document.querySelectorAll('.form-group input, .form-group select');
+      formInputs.forEach(input => {
+        input.addEventListener('focus', handleInputFocus);
+        input.addEventListener('blur', handleInputBlur);
+      });
+    });
+    
+    function initializeAnimations() {
+      // Animate form fields on load
+      gsap.from('.form-group', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out',
+        delay: 0.5
+      });
+      
+      // Slow down the floating animation for input fields
+      const floatingElements = document.querySelectorAll('.hover-float');
+      floatingElements.forEach(element => {
+        gsap.to(element, {
+          y: -3, // Reduced movement
+          duration: 3, // Slower animation
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: Math.random() * 2 // More varied delays
+        });
+      });
+    }
+    
+    function handleInputFocus(e) {
+      const formGroup = e.target.closest('.form-group');
+      const highlight = formGroup.querySelector('.input-highlight');
+      
+      // Animate the highlight
+      gsap.to(highlight, {
+        width: '100%',
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    }
+    
+    function handleInputBlur(e) {
+      const formGroup = e.target.closest('.form-group');
+      const highlight = formGroup.querySelector('.input-highlight');
+      
+      // If input is empty, shrink the highlight
+      if (!e.target.value) {
+        gsap.to(highlight, {
+          width: '0%',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    }
+    
+    function handleCholesterolFormSubmit(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const submitBtn = document.querySelector('.submit-btn');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const btnLoader = submitBtn.querySelector('.btn-loader');
+      
+      btnText.style.opacity = '0.5';
+      btnLoader.classList.remove('hidden');
+      
+      // Collect form data
+      const formData = new FormData(e.target);
+      const formObject = {};
+      
+      formData.forEach((value, key) => {
+        formObject[key] = value;
+      });
+      
+      // Send API request
+      fetch('/predict_cholesterol', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formObject)
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Reset button state
+        btnText.style.opacity = '1';
+        btnLoader.classList.add('hidden');
+        
+        // Display results with animation
+        showCholesterolResult(data.prediction);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        
+        // Reset button state
+        btnText.style.opacity = '1';
+        btnLoader.classList.add('hidden');
+        
+        // Show error message
+        alert('An error occurred. Please try again.');
+      });
+    }
+    
+    function showCholesterolResult(cholesterol) {
+      const resultSection = document.getElementById('cholesterolResult');
+      const cholesterolForm = document.getElementById('cholesterolForm');
+      const cholesterolLevel = document.getElementById('cholesterolLevel');
+      const cholesterolMessage = document.getElementById('cholesterolMessage');
+      const cholesterolPrediction = document.getElementById('cholesterolPrediction');
+      
+      // Update cholesterol value with animation
+      const cholesterolValue = Math.round(cholesterol);
+      
+      // Show result section
+      resultSection.classList.remove('hidden');
+      resultSection.classList.add('animate__fadeIn');
+      
+      // Hide form
+      gsap.to(cholesterolForm, {
+        opacity: 0,
+        height: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        onComplete: () => {
+          cholesterolForm.style.display = 'none';
+          
+          // Animate result appearance
+          gsap.from('.result-header', {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+          
+          gsap.from('.result-visual', {
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.8,
+            delay: 0.3,
+            ease: 'back.out(1.7)'
+          });
+          
+          // Animate the cholesterol value
+          gsap.to(cholesterolPrediction, {
+            innerHTML: cholesterolValue,
+            duration: 2,
+            snap: { innerHTML: 1 }
+          });
+          
+          // Set cholesterol level category and message
+          updateCholesterolLevel(cholesterolValue);
+        }
+      });
+    }
+    
+    function updateCholesterolLevel(cholesterol) {
+      const cholesterolLevel = document.getElementById('cholesterolLevel');
+      const cholesterolMessage = document.getElementById('cholesterolMessage');
+      
+      let level, message, className;
+      
+      // Determine cholesterol level
+      if (cholesterol < 200) {
+        level = 'Desirable';
+        message = 'Your cholesterol level is within the optimal range. Keep up the good habits!';
+        className = 'text-green-400';
+      } else if (cholesterol < 240) {
+        level = 'Borderline High';
+        message = 'Your cholesterol is slightly elevated. Consider making dietary adjustments.';
+        className = 'text-yellow-400';
+      } else {
+        level = 'High';
+        message = 'Your cholesterol level is high. Consider consulting with a healthcare professional.';
+        className = 'text-red-400';
+      }
+      
+      // Update text content
+      cholesterolLevel.textContent = `Cholesterol Level: ${level}`;
+      cholesterolLevel.className = className;
+      cholesterolMessage.textContent = message;
+      
+      // Animate the message
+      gsap.from(cholesterolMessage, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        delay: 1,
+        ease: 'power2.out'
+      });
+    }
+    
+    function resetCholesterolForm() {
+      const cholesterolForm = document.getElementById('cholesterolForm');
+      const resultSection = document.getElementById('cholesterolResult');
+      
+      // Hide result section with animation
+      gsap.to(resultSection, {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        ease: 'power2.out',
+        onComplete: () => {
+          resultSection.classList.add('hidden');
+          
+          // Reset the actual form
+          cholesterolForm.reset();
+          
+          // Show form again
+          cholesterolForm.style.display = 'block';
+          gsap.to(cholesterolForm, {
+            opacity: 1,
+            height: 'auto',
+            duration: 0.5,
+            ease: 'power2.out'
+          });
+          
+          // Animate form fields
+          gsap.from('.form-group', {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: 'power2.out',
+            delay: 0.2
+          });
+        }
+      });
+    }
+  </script>
+  <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+</body>
+</html>
